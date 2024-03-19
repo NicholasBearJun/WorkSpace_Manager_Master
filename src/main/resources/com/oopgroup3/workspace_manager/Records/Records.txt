@@ -1,0 +1,2 @@
+Work 1,65.50,mm/dd/yyyy,C:/path/app.exe
+Work 2,80.00,mm/dd/yyyy,C:/path/app2.exe
