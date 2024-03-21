@@ -5,8 +5,9 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #aaf683;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.oopgroup3.workspace_manager.HelloController">
+<AnchorPane fx:id="RecordPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #aaf683;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.oopgroup3.workspace_manager.SceneController">
    <children>
       <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="575.0" prefWidth="476.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -15,10 +16,22 @@
                   <VBox fx:id="recordBox" prefHeight="432.0" prefWidth="418.0" />
                </content>
             </ScrollPane>
-            <Label layoutX="40.0" layoutY="30.0" text="Record Page" />
-            <Button layoutX="40.0" layoutY="514.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="209.0" layoutY="514.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="373.0" layoutY="514.0" mnemonicParsing="false" text="Button" />
+            <Label layoutX="20.0" layoutY="22.0" text="Record Page">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font></Label>
+            <Button layoutX="64.0" layoutY="514.0" mnemonicParsing="false" text="Record">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button layoutX="214.0" layoutY="514.0" mnemonicParsing="false" text="Save">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button layoutX="337.0" layoutY="514.0" mnemonicParsing="false" onAction="#switchToMain" text="Back">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </children>

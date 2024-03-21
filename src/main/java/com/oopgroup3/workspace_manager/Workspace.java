@@ -10,7 +10,6 @@ public class Workspace {
     // Parameterized Constructor
     public Workspace(String WorkSpace_Name, String Work_Percentage, String Deadline_Time, String WorkSpace_Directory) {
         this.WorkSpace_Name = WorkSpace_Name;
-        this.Work_Percentage = Work_Percentage;
         this.Deadline_Time = Deadline_Time;
         this.WorkSpace_Directory = WorkSpace_Directory;
     }
@@ -21,14 +20,6 @@ public class Workspace {
 
     public void setWorkSpace_Name(String workSpace_Name) {
         WorkSpace_Name = workSpace_Name;
-    }
-
-    public String getWork_Percentage() {
-        return Work_Percentage;
-    }
-
-    public void setWork_Percentage(String work_Percentage) {
-        Work_Percentage = work_Percentage;
     }
 
     public String getDeadline_Time() {

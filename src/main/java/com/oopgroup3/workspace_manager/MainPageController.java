@@ -1,14 +1,14 @@
 package com.oopgroup3.workspace_manager;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,16 +17,26 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+public class MainPageController implements Initializable {
 
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
     @FXML
     private VBox cardBox;
-    
+
+    private SceneController sceneController;
+
+    //inject SceneController
+    public void injectSceneController(SceneController sceneController){
+        this.sceneController = sceneController;
+    }
+
+    // List variable initialization for cards
     List<Workspace> ls_workspaces;
-    
+
     // Initialize and place for CardController
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -43,7 +53,7 @@ public class HelloController implements Initializable {
 
                 // Access the CardController instance
                 CardController cardController = loader.getController();
-                
+
                 // set the data of the Custom Card using setData method in CardController.java
                 cardController.setWorkspaceData(workspace);
 
@@ -51,13 +61,16 @@ public class HelloController implements Initializable {
 
                 // add the ca to the Main's VBox
                 cardBox.getChildren().add(customCard);
+
+                System.out.println("Main page completed");
             }
         } catch (IOException e){
             e.printStackTrace();
         }
-
     }
 
+
+    // loop through workspace
     private List<Workspace> workspaces(){
         List<Workspace> ls = new ArrayList<>();
 
@@ -98,4 +111,15 @@ public class HelloController implements Initializable {
         // workspace set variables
         return new Workspace(name, percentage ,date, txtFilePath); // return a instance of Workspace with constructor
     }
+
+
+
+    // Change page to Record Page
+    @FXML
+    private void switchToRecord(ActionEvent event) throws IOException {
+        System.out.println("MainPagecontroller switch pressed");
+        sceneController.switchToRecord(event);
+    }
+
+
 }

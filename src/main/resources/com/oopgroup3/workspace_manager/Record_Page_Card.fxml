@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -9,16 +10,19 @@
 
 <Pane style="-fx-border-radius: 5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.oopgroup3.workspace_manager.CardController">
    <children>
-      <VBox prefHeight="110.0" prefWidth="430.0">
+      <VBox prefHeight="110.0" prefWidth="430.0" style="-fx-background-color: #7fdef7; -fx-border-width: 0.5; -fx-background-radius: 5;">
          <children>
             <HBox prefHeight="55.0" prefWidth="430.0">
                <children>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
-                        <Insets left="10.0" top="5.0" />
+                        <Insets left="10.0" top="8.0" />
                      </HBox.margin>
+                     <image>
+                        <Image url="@Icons/tagRecord.png" />
+                     </image>
                   </ImageView>
-                  <TextField fx:id="AppName" prefHeight="25.0" prefWidth="330.0">
+                  <TextField fx:id="AppName" prefHeight="25.0" prefWidth="330.0" text="Application.exe">
                      <HBox.margin>
                         <Insets left="20.0" top="18.0" />
                      </HBox.margin>
@@ -31,8 +35,11 @@
                      <HBox.margin>
                         <Insets left="10.0" top="5.0" />
                      </HBox.margin>
+                     <image>
+                        <Image url="@Icons/folderRecord.png" />
+                     </image>
                   </ImageView>
-                  <TextField fx:id="Path" prefHeight="25.0" prefWidth="330.0">
+                  <TextField fx:id="Path" prefHeight="25.0" prefWidth="330.0" text="C:/Folder/ApplicationPath">
                      <HBox.margin>
                         <Insets left="20.0" top="12.0" />
                      </HBox.margin>
