@@ -3,7 +3,6 @@ package com.oopgroup3.workspace_manager;
 public class Workspace {
     // Variable of all variables on the card
     private String WorkSpace_Name;
-    private String Work_Percentage;
     private String Deadline_Time;
     private String WorkSpace_Directory;
 

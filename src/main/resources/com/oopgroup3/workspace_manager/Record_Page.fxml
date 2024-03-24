@@ -27,7 +27,7 @@
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Button layoutX="214.0" layoutY="514.0" mnemonicParsing="false" text="Save">
+            <Button fx:id="btnSave" layoutX="214.0" layoutY="514.0" mnemonicParsing="false" onAction="#saveList" text="Save">
                <font>
                   <Font size="18.0" />
                </font></Button>
@@ -47,7 +47,7 @@
                   <Insets top="10.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="26.0" prefWidth="287.0" promptText="Enter name here...">
+            <TextField fx:id="workspaceNameField" prefHeight="26.0" prefWidth="287.0" promptText="Enter name here...">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>

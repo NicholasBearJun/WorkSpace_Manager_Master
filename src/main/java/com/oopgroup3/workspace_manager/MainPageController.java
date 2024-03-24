@@ -32,6 +32,11 @@ public class MainPageController implements Initializable {
     @FXML
     private VBox cardBox;
 
+    // Method to set the stage (GPT)
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
 //    private SceneController sceneController;
 //
 //    //inject SceneController

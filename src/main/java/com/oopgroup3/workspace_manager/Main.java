@@ -14,11 +14,12 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/oopgroup3/workspace_manager/Record_Page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/oopgroup3/workspace_manager/Main_Page.fxml"));
             Parent root = loader.load();
 
             // Get the controller instance
-            RecordPageController controller = loader.getController();
+            // Remember to change this controller
+            MainPageController controller = loader.getController();
             // Pass the stage to the controller
             controller.setStage(stage);
 

@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -26,6 +27,9 @@ public class RecordPageController implements Initializable {
     private Parent root;
     @FXML
     private VBox recordBox;
+    @FXML
+    private TextField workspaceNameField;
+
 
     // Method to set the stage (GPT)
     public void setStage(Stage stage) {
@@ -307,7 +311,7 @@ public class RecordPageController implements Initializable {
             showAlert(Alert.AlertType.CONFIRMATION, "File Selected", "Selected file: " + selectedFile.getAbsolutePath());
 
             // Refresh the FXML page
-            refreshPage();
+            //refreshPage();
             System.out.println(TempList);
         } else {
             // Show error message if no file selected
@@ -315,9 +319,61 @@ public class RecordPageController implements Initializable {
         }
     }
 
+    // Method to save temporary list into a text file
+    @FXML
+    private void saveList(ActionEvent event){
+
+        // Iterate through temporary list to write into file
+        for (String element : TempList){
+            writePath(element);
+        }
+
+        String nameField = workspaceNameField.getText();
+        String filePath = "src/main/resources/com/oopgroup3/workspace_manager/Records/Records.txt";
+
+        String data = "\n" + nameField + ",\"dd/mm/yyyy\",\"Path and shit\",";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            // Write the data to the file
+            writer.write(data);
+
+            // Flush the writer
+            writer.flush();
+
+            System.out.println("Data has been written to the file.");
+        } catch (IOException e) {
+            System.err.println("Error writing to the file: " + e.getMessage());
+        }
+
+
+    }
+
+
     // Method to write the selected file path to application.txt
     private void writePath(String path) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/com/oopgroup3/workspace_manager/Records/Applications/Applications.txt", true))) {
+        // Get Workspace Namefield text
+        // Create a TextField
+        String nameField = workspaceNameField.getText(); // Get text from the TextField
+        System.out.println("Name Field: " + workspaceNameField);
+
+        if (nameField == null || nameField.isEmpty()) {
+            // Show an alert if the TextField is null or empty
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("TextField is null or empty!");
+            alert.showAndWait();
+
+            while (nameField == null || nameField.isEmpty()) {
+                try {
+                    Thread.sleep(1000); // Sleep for a second
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                nameField = workspaceNameField.getText();
+            }
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/com/oopgroup3/workspace_manager/Records/Applications/" + nameField +".txt", true))) {
             writer.write(path+ ",");
             writer.newLine();
         } catch (IOException e) {
@@ -325,6 +381,7 @@ public class RecordPageController implements Initializable {
             // Handle the exception appropriately, e.g., show an error dialog
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to write file path.");
         }
+        System.out.println("Filename: " + nameField + ".txt created.");
     }
 
     // Method to show an alert dialog
