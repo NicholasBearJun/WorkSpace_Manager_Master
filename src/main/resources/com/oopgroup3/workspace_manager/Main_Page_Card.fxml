@@ -5,42 +5,29 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <Pane style="-fx-border-radius: 5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.oopgroup3.workspace_manager.CardController">
    <children>
       <HBox fx:id="cardBody" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="430.0" style="-fx-border-color: #000000; -fx-border-width: 2.5; -fx-border-radius: 5;">
          <children>
-            <Label fx:id="WorkSpaceName" prefHeight="46.0" prefWidth="114.0" text="Name" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Comic Sans MS Bold" size="18.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Label>
-            <StackPane prefHeight="150.0" prefWidth="141.0">
+            <VBox prefHeight="146.0" prefWidth="278.0">
                <children>
-                  <Circle fill="WHITE" radius="60.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fill="#1fff8c" radius="60.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label fx:id="Percentage" text="00 %">
+                  <Label fx:id="WorkSpaceName" prefHeight="46.0" prefWidth="195.0" text="Name" textAlignment="CENTER" wrapText="true">
                      <font>
-                        <Font name="Comic Sans MS Bold" size="24.0" />
+                        <Font name="Comic Sans MS Bold" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </Label>
-               </children>
-            </StackPane>
-            <VBox prefHeight="200.0" prefWidth="120.0">
-               <children>
                   <Label prefHeight="26.0" prefWidth="86.0" text="Deadline: " textAlignment="CENTER">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets left="10.0" top="20.0" />
                      </VBox.margin>
                   </Label>
                   <Label fx:id="Deadline" prefHeight="26.0" prefWidth="86.0" text="Time" textAlignment="CENTER">
@@ -51,16 +38,28 @@
                         <Insets />
                      </opaqueInsets>
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" text=" To-Do List  ▼" textAlignment="CENTER">
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="120.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Complete" textAlignment="CENTER">
                      <VBox.margin>
-                        <Insets top="25.0" />
+                        <Insets left="15.0" top="40.0" />
                      </VBox.margin>
                      <font>
                         <Font name="Comic Sans MS" size="14.0" />
                      </font>
+                  </Button>
+                  <Button fx:id="btnOpen" mnemonicParsing="false" onAction="#openApps" text="Open" textAlignment="CENTER">
+                     <font>
+                        <Font name="Comic Sans MS" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="40.0" top="10.0" />
+                     </VBox.margin>
                   </Button>
                </children>
                <HBox.margin>

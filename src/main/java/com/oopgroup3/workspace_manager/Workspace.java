@@ -8,7 +8,7 @@ public class Workspace {
     private String WorkSpace_Directory;
 
     // Parameterized Constructor
-    public Workspace(String WorkSpace_Name, String Work_Percentage, String Deadline_Time, String WorkSpace_Directory) {
+    public Workspace(String WorkSpace_Name, String Deadline_Time, String WorkSpace_Directory) {
         this.WorkSpace_Name = WorkSpace_Name;
         this.Deadline_Time = Deadline_Time;
         this.WorkSpace_Directory = WorkSpace_Directory;
@@ -37,4 +37,6 @@ public class Workspace {
     public String getWorkSpace_Directory() {
         return WorkSpace_Directory;
     }
+
+    public String btnOpenPressed(){return WorkSpace_Name;}
 }

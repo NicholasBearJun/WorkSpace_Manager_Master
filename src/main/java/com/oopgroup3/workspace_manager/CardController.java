@@ -1,9 +1,14 @@
 package com.oopgroup3.workspace_manager;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+
+import java.io.File;
+import java.util.List;
+
 public class CardController {
     // Controller skeleton for Main Page Card
     @FXML
@@ -28,7 +33,6 @@ public class CardController {
     public void setWorkspaceData(Workspace workspace){
 
         WorkSpaceName.setText(workspace.getWorkSpace_Name());
-        Percentage.setText(workspace.getWork_Percentage() + "%");
         Deadline.setText(workspace.getDeadline_Time());
     }
     // Set the Names according to Records.java
@@ -36,4 +40,37 @@ public class CardController {
         AppName.setText(records.getAppName());
         Path.setText(records.getPath());
     }
+
+    public void setTempRecordData(Records list){
+        AppName.setText(list.getAppName());
+        Path.setText(list.getPath());
+    }
+
+    // ______________________________________________________ Buttons Functions ____________________________________________
+    // This method handles the button click event
+    @FXML
+    private void openApps(ActionEvent event) {
+        // Get the text from the label and do something with it
+        String labelText = WorkSpaceName.getText();
+
+        // Find using filenametext.txt then access all the path inside the txt
+        // Construct the file path
+        String filePath = "src/main/resources/com/oopgroup3/workspace_manager/Records/Applications/"+ labelText +".txt";
+
+        // Check if the file exists
+        File file = new File(filePath);
+        if (file.exists()) {
+            System.out.println("File found: " + filePath);
+            // Do something with the file, e.g., read its contents
+        } else {
+            System.out.println("File not found: " + filePath);
+            // Handle the case where the file does not exist
+        }
+    }
+
+    // Method to return the text from the label
+    public String getWorkspaceLabelText() {
+        return WorkSpaceName.getText();
+    }
+
 }

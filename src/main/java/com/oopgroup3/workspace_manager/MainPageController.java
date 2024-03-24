@@ -1,4 +1,5 @@
 package com.oopgroup3.workspace_manager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -6,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainPageController implements Initializable {
@@ -25,14 +28,16 @@ public class MainPageController implements Initializable {
     private Scene scene;
     private Parent root;
     @FXML
+    private Label WorkSpaceName;
+    @FXML
     private VBox cardBox;
 
-    private SceneController sceneController;
-
-    //inject SceneController
-    public void injectSceneController(SceneController sceneController){
-        this.sceneController = sceneController;
-    }
+//    private SceneController sceneController;
+//
+//    //inject SceneController
+//    public void injectSceneController(SceneController sceneController){
+//        this.sceneController = sceneController;
+//    }
 
     // List variable initialization for cards
     List<Workspace> ls_workspaces;
@@ -63,6 +68,7 @@ public class MainPageController implements Initializable {
                 cardBox.getChildren().add(customCard);
 
                 System.out.println("Main page completed");
+                System.out.println(ls_workspaces);
             }
         } catch (IOException e){
             e.printStackTrace();
@@ -83,7 +89,7 @@ public class MainPageController implements Initializable {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 4) {
+                if (parts.length == 3) {
                     // create a new instance of Workspace class and assign with another workspace instance
                     Workspace workspace = getWorkspace(parts);
 
@@ -97,29 +103,50 @@ public class MainPageController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.print(ls);
         return ls;
     }
 
     // Method to handle the separation of data from text file's readLine
     private Workspace getWorkspace(String[] parts) {
         String name = parts[0];
-        String percentage = parts[1];
-        String date = parts[2];
-        String txtFilePath = parts[3];
+        String date = parts[1];
+        String txtFilePath = parts[2];
 
         // workspace set variables
-        return new Workspace(name, percentage ,date, txtFilePath); // return a instance of Workspace with constructor
+        System.out.print("Name:" + name);
+        System.out.print("Date:" + date);
+        System.out.print("txtFilePath:" + txtFilePath);
+        return new Workspace(name,date, txtFilePath); // return a instance of Workspace with constructor
     }
 
 
-
+    // ______________________________________________________ Buttons Functions ____________________________________________
     // Change page to Record Page
     @FXML
     private void switchToRecord(ActionEvent event) throws IOException {
-        System.out.println("MainPagecontroller switch pressed");
-        sceneController.switchToRecord(event);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Record_Page.fxml"));
+        Parent root = loader.load();
+        scene.setRoot(root);
+//        try {
+//            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/oopgroup3/workspace_manager/Main_Page.fxml")));
+//            Scene scene = new Scene(root);
+//            stage.setResizable(false); // disable user from maximize
+//            stage.setTitle("Workspace Manager");
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
+
+    @FXML
+    private void closeApplication(ActionEvent event) throws IOException {
+        // Close the application
+        Platform.exit();
+
+    }
+
 
 
 }

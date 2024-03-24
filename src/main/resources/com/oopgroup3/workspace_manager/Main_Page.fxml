@@ -21,7 +21,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="296.0" layoutY="517.0" mnemonicParsing="false" onAction="#switchToRecord" text="Open" textAlignment="CENTER">
+            <Button fx:id="btnClose" layoutX="296.0" layoutY="517.0" mnemonicParsing="false" onAction="#closeApplication" text="Close" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
