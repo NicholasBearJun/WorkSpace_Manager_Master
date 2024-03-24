@@ -14,7 +14,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
+
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import java.io.IOException;
 import java.net.URL;
@@ -115,21 +118,34 @@ public class CalendarController implements Initializable {
                     String deadlineDay = String.valueOf(clickedDate);
                     String deadlineMonth = "";
                     switch (month.getText()){
-                        case "JANUARY": deadlineMonth = "1";break;
-                        case "FEBRUARY": deadlineMonth = "2";break;
-                        case "MARCH": deadlineMonth = "3";break;
-                        case "APRIL": deadlineMonth = "4";break;
-                        case "MAY": deadlineMonth = "5";break;
-                        case "JUNE": deadlineMonth = "6";break;
-                        case "JULY": deadlineMonth = "7";break;
-                        case "AUGUST": deadlineMonth = "8";break;
-                        case "SEPTEMBER": deadlineMonth = "9";break;
+                        case "JANUARY": deadlineMonth = "01";break;
+                        case "FEBRUARY": deadlineMonth = "02";break;
+                        case "MARCH": deadlineMonth = "03";break;
+                        case "APRIL": deadlineMonth = "04";break;
+                        case "MAY": deadlineMonth = "05";break;
+                        case "JUNE": deadlineMonth = "06";break;
+                        case "JULY": deadlineMonth = "07";break;
+                        case "AUGUST": deadlineMonth = "08";break;
+                        case "SEPTEMBER": deadlineMonth = "09";break;
                         case "OCTOBER": deadlineMonth = "10";break;
                         case "NOVEMBER": deadlineMonth = "11";break;
                         case "DECEMBER": deadlineMonth = "12";
                     }
                     String deadlineDate = deadlineDay + "/" + deadlineMonth + "/" + year.getText();
                     System.out.println("Clicked Date: " + deadlineDate);
+
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    Date deadlineDatecalc = null;
+                    try{
+                        deadlineDatecalc = formatter.parse(deadlineDate);
+                    }catch (ParseException e){
+
+                    }
+
+                    Date currentDate = new Date();
+
+                    long remainingTime = (deadlineDatecalc.getTime() - currentDate.getTime()) / 1000 / 3600 / 24 + 1;
+                    System.out.println("Remaining time till deadline is: " + remainingTime);
                 });
 
                 calendar.getChildren().add(stackPane);
