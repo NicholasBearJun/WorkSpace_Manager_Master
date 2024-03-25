@@ -94,7 +94,7 @@ public class MainPageController implements Initializable {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 3) {
+                if (parts.length == 2) {
                     // create a new instance of Workspace class and assign with another workspace instance
                     Workspace workspace = getWorkspace(parts);
 
@@ -116,13 +116,11 @@ public class MainPageController implements Initializable {
     private Workspace getWorkspace(String[] parts) {
         String name = parts[0];
         String date = parts[1];
-        String txtFilePath = parts[2];
 
         // workspace set variables
         System.out.print("Name:" + name);
         System.out.print("Date:" + date);
-        System.out.print("txtFilePath:" + txtFilePath);
-        return new Workspace(name,date, txtFilePath); // return a instance of Workspace with constructor
+        return new Workspace(name,date); // return a instance of Workspace with constructor
     }
 
 

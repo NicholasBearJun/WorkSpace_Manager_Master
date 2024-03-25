@@ -1,2 +1,2 @@
+C:\Program Files\WinRAR\WinRAR.exe,
 C:\Program Files\Wireshark\Wireshark.exe,
-C:\Program Files\WinRAR\WinRAR.exe

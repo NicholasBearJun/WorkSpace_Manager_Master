@@ -30,7 +30,7 @@
                         <Insets left="10.0" top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="Deadline" prefHeight="26.0" prefWidth="86.0" text="Time" textAlignment="CENTER">
+                  <Label fx:id="Deadline" prefHeight="26.0" prefWidth="234.0" text="Time" textAlignment="CENTER">
                      <font>
                         <Font name="Comic Sans MS" size="16.0" />
                      </font>

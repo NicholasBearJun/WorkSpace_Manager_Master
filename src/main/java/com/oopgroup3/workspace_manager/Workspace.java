@@ -4,13 +4,12 @@ public class Workspace {
     // Variable of all variables on the card
     private String WorkSpace_Name;
     private String Deadline_Time;
-    private String WorkSpace_Directory;
+
 
     // Parameterized Constructor
-    public Workspace(String WorkSpace_Name, String Deadline_Time, String WorkSpace_Directory) {
+    public Workspace(String WorkSpace_Name, String Deadline_Time) {
         this.WorkSpace_Name = WorkSpace_Name;
         this.Deadline_Time = Deadline_Time;
-        this.WorkSpace_Directory = WorkSpace_Directory;
     }
 
     public String getWorkSpace_Name() {
@@ -27,14 +26,6 @@ public class Workspace {
 
     public void setDeadline_Time(String deadline_Time) {
         Deadline_Time = deadline_Time;
-    }
-
-    public void setWorkSpace_Directory(String workSpace_Directory) {
-        WorkSpace_Directory = workSpace_Directory;
-    }
-
-    public String getWorkSpace_Directory() {
-        return WorkSpace_Directory;
     }
 
     public String btnOpenPressed(){return WorkSpace_Name;}

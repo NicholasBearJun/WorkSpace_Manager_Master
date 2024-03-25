@@ -30,6 +30,7 @@ public class CalendarController implements Initializable {
     ZonedDateTime dateFocus;
     ZonedDateTime today;
 
+
     @FXML
     private Label year;
 
@@ -62,6 +63,10 @@ public class CalendarController implements Initializable {
     }
 
     private ZonedDateTime clickedDate;
+
+    public void calculateDeadline(){
+
+    }
 
     private void drawCalendar() {
         year.setText(String.valueOf(dateFocus.getYear()));
