@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -37,6 +38,7 @@ public class CalendarController implements Initializable {
 
     @FXML
     private FlowPane calendar;
+    private Stage stage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -210,4 +212,6 @@ public class CalendarController implements Initializable {
 
         return calendarActivityMap;
     }
+
+    public void setStage(Stage stage) {this.stage = stage;}
 }

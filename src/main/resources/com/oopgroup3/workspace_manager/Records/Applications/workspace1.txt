@@ -1,2 +1,2 @@
-C:\Users\nicch\Downloads\GitHubDesktopSetup-x64.exe,
-C:\Users\nicch\Downloads\RokokoStudio_v1.0.0.10732.exe,
+C:\Program Files\Wireshark\Wireshark.exe,
+C:\Program Files\WinRAR\WinRAR.exe
