@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -31,6 +32,8 @@ public class MainPageController implements Initializable {
     private Label WorkSpaceName;
     @FXML
     private VBox cardBox;
+    @FXML
+    private Button btnToRecord;
 
     // Method to set the stage (GPT)
     public void setStage(Stage stage) {
@@ -129,8 +132,22 @@ public class MainPageController implements Initializable {
     @FXML
     private void switchToRecord(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Record_Page.fxml"));
-        Parent root = loader.load();
-        scene.setRoot(root);
+        stage = (Stage) btnToRecord.getScene().getWindow();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        if (stage == null) {
+            return;
+        }
+        stage.setScene(new Scene(root));
+        stage.show();
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("Record_Page.fxml"));
+//        Parent root = loader.load();
+//        scene.setRoot(root);
 //        try {
 //            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/oopgroup3/workspace_manager/Main_Page.fxml")));
 //            Scene scene = new Scene(root);

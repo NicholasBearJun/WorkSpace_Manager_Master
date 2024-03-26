@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
@@ -25,11 +26,23 @@ public class RecordPageController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+
+    @FXML
+    private Button btnBack;
+    @FXML
+    private Button btnDeadline;
+
     @FXML
     private VBox recordBox;
     @FXML
     private TextField workspaceNameField;
+    @FXML
+    private TextField workspaceDateField;
 
+    public void setWorkspaceDateText(String text) {
+        workspaceDateField.setText(text);
+    }
 
     // Method to set the stage (GPT)
     public void setStage(Stage stage) {
@@ -44,13 +57,25 @@ public class RecordPageController implements Initializable {
 
     List<Records> ls_records;
     List<String> TempList = new ArrayList();
+    List<String> TempFilePath = new ArrayList<>();
+
+    private void updateRecordsFromTemp() {
+        ls_records.clear();
+        for (String element : TempFilePath) {
+            Records records = getRecords(element.trim());
+            ls_records.add(records);
+        }
+        System.out.println(ls_records);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
-        // !!!!!!!!
-        //NEED to implement a checking of .txt file. If exist only display if on no need
+        Beginning();
+    }
 
+    private void Beginning(){
+        recordBox.getChildren().clear();
         ls_records = new ArrayList<>(records());
         // Load out according to list
         try{
@@ -61,8 +86,11 @@ public class RecordPageController implements Initializable {
                 Pane customCard = loader.load();
                 // Access the CardController instance
                 CardController cardController = loader.getController();
+
+                System.out.println(records);
                 // set the data of the Custom Card using setData method in CardController.java
                 cardController.setRecordData(records);
+
 
                 recordBox.setSpacing(2.5);
 
@@ -89,48 +117,23 @@ public class RecordPageController implements Initializable {
         // Iterate through list, split lines and parse them
         for (String element : TempList){
             System.out.println(element);
-            Records records = getRecords(element.trim()); // Trim each part to remove extra spaces
+            Records records = getRecords(element.trim());
+            System.out.println("records : " + ls);
             ls.add(records);
         }
 
+//        // Iterate through list, split lines and parse them
+//        for (String element : TempFilePath){
+//            System.out.println(element);
+//            Records records = getRecords(element.trim());
+//            System.out.println(TempFilePath);
+//            System.out.println("records : " + ls);
+//            ls.add(records);
+//        }
+        System.out.println("ls: " + ls);
         return ls;
     }
     //--------------------------------------------------------------------------------------------------
-
-//    private List<Records> records(){
-//        List<Records> ls = new ArrayList<>();
-//
-//        //Check if Application.txt exists
-//
-//
-//        // Identify the file
-//        String recordPath = "src/main/resources/com/oopgroup3/workspace_manager/Records/Applications/Applications.txt";
-//        File file = new File(recordPath);
-//
-//        // Check if the file exists
-//        if (!file.exists()) {
-//            System.out.println("File does not exist.");
-//            // You can add code here to handle the case where the file doesn't exist
-//            return ls; // Return an empty list since there are no records to read
-//        }
-//
-//        // Iterate through text file, split lines and parse them
-//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                // Splitting the line by the comma
-//                String[] parts = line.split(",");
-//                for (String part : parts) {
-//                    Records records = getRecords(part.trim()); // Trim each part to remove extra spaces
-//                    ls.add(records);
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(ls);
-//        return ls;
-//    }
 
     private Records getRecords(String part) {
 
@@ -277,11 +280,44 @@ public class RecordPageController implements Initializable {
 
 // ______________________________________________________ Buttons Functions ____________________________________________
     // Method to handle switching to the main page
+@FXML
+private void openDeadline(ActionEvent event) throws IOException {
+
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("Calendar.fxml"));
+    stage = (Stage) btnDeadline.getScene().getWindow();
+    Parent root = null;
+    try {
+        root = loader.load();
+    } catch (IOException e) {
+        e.printStackTrace();
+        return;
+    }
+    if (stage == null) {
+        return;
+    }
+    stage.setScene(new Scene(root));
+    stage.show();
+}
+
     @FXML
     private void switchToMain(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
-        Parent root = loader.load();
-        scene.setRoot(root);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Page.fxml"));
+        stage = (Stage) btnBack.getScene().getWindow();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            // Handle loading exception
+            e.printStackTrace();
+            return;
+        }
+        if (stage == null) {
+            // Handle null stage scenario (e.g., throw exception)
+            return;
+        }
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
@@ -304,15 +340,15 @@ public class RecordPageController implements Initializable {
 
             //Save into temporary list
             TempList.add(selectedFile.getAbsolutePath());
-
+            TempFilePath.add(selectedFile.getAbsolutePath());
             // Write selected file path to application.txt
             //writePath(selectedFile.getAbsolutePath());   <-- Wirte file code
             // Show confirmation message
             showAlert(Alert.AlertType.CONFIRMATION, "File Selected", "Selected file: " + selectedFile.getAbsolutePath());
-
             // Refresh the FXML page
             //refreshPage();
             System.out.println(TempList);
+            Beginning();
         } else {
             // Show error message if no file selected
             showAlert(Alert.AlertType.ERROR, "No File Selected", "No file selected.");
@@ -329,9 +365,11 @@ public class RecordPageController implements Initializable {
         }
 
         String nameField = workspaceNameField.getText();
+        // String dateField = workspaceDateField.getText();
+        String dateField = CalendarController.getDate;
         String filePath = "src/main/resources/com/oopgroup3/workspace_manager/Records/Records.txt";
 
-        String data = "\n" + nameField + ",\"dd/mm/yyyy\",\"Path and shit\",";
+        String data = "\n" + nameField + "," + dateField + ",";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             // Write the data to the file
             writer.write(data);
@@ -396,22 +434,20 @@ public class RecordPageController implements Initializable {
 
     // Method to refresh the FXML page
     private void refreshPage() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Record_Page.fxml"));
+        //stage = (Stage) btnPick.getScene().getWindow();
+        Parent root = null;
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/oopgroup3/workspace_manager/Record_Page.fxml")));
-            Scene scene = new Scene(root);
-            stage.setResizable(false); // disable user from maximizing
-            stage.setTitle("Workspace Manager");
-            stage.setScene(scene);
-            stage.show();
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("Record_Page.fxml"));
-//            loader.setController(this); // Set the controller to this instance
-//            Node root = loader.load();
-//            scene.setRoot((Parent) root);
+            root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception appropriately, e.g., show an error dialog
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to refresh page.");
+            return;
         }
+        if (stage == null) {
+            return;
+        }
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }

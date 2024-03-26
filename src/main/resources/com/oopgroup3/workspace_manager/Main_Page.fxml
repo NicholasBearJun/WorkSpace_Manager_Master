@@ -16,7 +16,7 @@
                   <VBox fx:id="cardBox" prefHeight="432.0" prefWidth="418.0" />
                </content>
             </ScrollPane>
-            <Button layoutX="111.0" layoutY="517.0" mnemonicParsing="false" onAction="#switchToRecord" prefHeight="40.0" prefWidth="94.0" text="Record" textAlignment="CENTER">
+            <Button fx:id="btnToRecord" layoutX="111.0" layoutY="517.0" mnemonicParsing="false" onAction="#switchToRecord" prefHeight="40.0" prefWidth="94.0" text="Record" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>

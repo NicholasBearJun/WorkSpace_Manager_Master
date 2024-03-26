@@ -4,9 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -16,11 +16,14 @@ import javafx.scene.text.Text;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -30,6 +33,20 @@ public class CalendarController implements Initializable {
     ZonedDateTime dateFocus;
     ZonedDateTime today;
 
+    public static String getDate;
+
+    private RecordPageController recordPageController;
+    public void setText(String text){
+        if (recordPageController != null){
+            recordPageController.setWorkspaceDateText(getDate);
+        }
+    }
+    public void setrecordPageController(RecordPageController recordPageController) {
+        this.recordPageController = recordPageController;
+    }
+
+    @FXML
+    private Button btnPick;
 
     @FXML
     private Label year;
@@ -46,6 +63,7 @@ public class CalendarController implements Initializable {
         dateFocus = ZonedDateTime.now();
         today = ZonedDateTime.now();
         drawCalendar();
+
     }
 
     @FXML
@@ -63,10 +81,6 @@ public class CalendarController implements Initializable {
     }
 
     private ZonedDateTime clickedDate;
-
-    public void calculateDeadline(){
-
-    }
 
     private void drawCalendar() {
         year.setText(String.valueOf(dateFocus.getYear()));
@@ -149,10 +163,11 @@ public class CalendarController implements Initializable {
 
                     }
 
+                    getDate = deadlineDate;
                     Date currentDate = new Date();
 
                     long remainingTime = (deadlineDatecalc.getTime() - currentDate.getTime()) / 1000 / 3600 / 24 + 1;
-                    System.out.println("Remaining time till deadline is: " + remainingTime);
+
                 });
 
                 calendar.getChildren().add(stackPane);
@@ -216,7 +231,29 @@ public class CalendarController implements Initializable {
         }
 
         return calendarActivityMap;
+
+
     }
 
-    public void setStage(Stage stage) {this.stage = stage;}
-}
+    @FXML
+    private void saveDate(ActionEvent event) {
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Record_Page.fxml"));
+        stage = (Stage) btnPick.getScene().getWindow();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        if (stage == null) {
+            return;
+        }
+        stage.setScene(new Scene(root));
+        stage.show();
+
+        }
+
+    }

@@ -55,5 +55,10 @@
             <Font name="Arial Black" size="19.0" />
          </font>
       </Label>
+      <Button fx:id="btnPick" layoutX="200.0" layoutY="530.0" mnemonicParsing="false" onAction="#saveDate" text="Pick Date">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

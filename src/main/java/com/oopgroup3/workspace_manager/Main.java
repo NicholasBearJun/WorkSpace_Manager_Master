@@ -29,8 +29,6 @@ public class Main extends Application {
             stage.setTitle("Workspace Manager");
             stage.setScene(scene);
             stage.show();
-
-
 //            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/oopgroup3/workspace_manager/Record_Page.fxml")));
 //            Scene scene = new Scene(root);
 //            stage.setResizable(false); // disable user from maximize

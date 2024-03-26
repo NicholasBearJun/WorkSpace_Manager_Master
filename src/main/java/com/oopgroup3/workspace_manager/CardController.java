@@ -2,16 +2,26 @@ package com.oopgroup3.workspace_manager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CardController {
+
+    private Stage stage;
+
     // Controller skeleton for Main Page Card
     @FXML
     private VBox cardBox;
@@ -30,6 +40,8 @@ public class CardController {
     @FXML
     private TextField Path;
 
+    @FXML
+    private Button btnComplete;
 
     // Set the Names according to Workspace.java
     public void setWorkspaceData(Workspace workspace) {
@@ -66,10 +78,8 @@ public class CardController {
         File file = new File(filePath);
         if (file.exists()) {
             System.out.println("File found: " + filePath);
-            // Do something with the file, e.g., read its contents
         } else {
             System.out.println("File not found: " + filePath);
-            // Handle the case where the file does not exist
         }
 
         // Loop through file and run applications
@@ -95,6 +105,76 @@ public class CardController {
         }
 
     }
+
+    @FXML
+    private void eraseWorkspace(ActionEvent event) {
+        // Get the text from the label and do something with it
+        String labelText = WorkSpaceName.getText();
+        String filePath = "src/main/resources/com/oopgroup3/workspace_manager/Records/Records.txt";
+
+        try {
+            // Input file
+            File inputFile = new File(filePath);
+            // Temp file
+            File tempFile = new File("temp.txt");
+
+            File doomedFile = new File ("src/main/resources/com/oopgroup3/workspace_manager/Records/Applications/", labelText + ".txt");
+            doomedFile.delete();
+
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader = new FileReader(inputFile);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            // FileWriter writes text files in the default encoding.
+            FileWriter fileWriter = new FileWriter(tempFile);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            String lineToRemove;
+            while ((lineToRemove = bufferedReader.readLine()) != null) {
+                // Check if the line starts with the labelText
+                if (!lineToRemove.startsWith(labelText)) {
+                    bufferedWriter.write(lineToRemove + "\n");
+                }
+            }
+            bufferedReader.close();
+            bufferedWriter.close();
+
+            // Delete the original file
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete the original file.");
+                return;
+            }
+
+            // Rename the temp file to the original file name
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename the temp file.");
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file '" + filePath + "'");
+        } catch (IOException ex) {
+            System.out.println("Error reading/writing file '" + filePath + "'");
+        }
+
+
+        // ------------------------------------ Reload page -------------------------
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Page.fxml"));
+        stage = (Stage) btnComplete.getScene().getWindow();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            // Handle loading exception
+            e.printStackTrace();
+            return;
+        }
+        if (stage == null) {
+            // Handle null stage scenario (e.g., throw exception)
+            return;
+        }
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 
     // Method to return the text from the label
     public String getWorkspaceLabelText() {
